@@ -1,6 +1,6 @@
 import {restrauntList} from "../constants";
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 function filterData(searchText,restaurant){
@@ -13,6 +13,20 @@ function filterData(searchText,restaurant){
 const Body = ()=>{
     const [restaurants,setRestaurant] = useState(restrauntList)
     const [searchText,setSearchText] = useState("");
+
+    useEffect(()=>{
+        getRestaurants();
+    },[]);
+
+    async function getRestaurants() {
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.2523733&lng=77.4973899&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+
+        const json = await data.json();
+        console.log(json);
+        // opetional chaining .?
+        setRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    }
+
     return (
         <>
         <div className="search-container">
