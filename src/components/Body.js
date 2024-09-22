@@ -70,6 +70,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react"; /* This is named export */
 import Shimmer from "./Shimmer"; /* This is default export */
 // import { FOODFIRE_API_URL } from "../../../public/Common/constants";
+import { Link } from "react-router-dom";
+import useOnline from "../utils/useOnline";
 
 // Filter the restaurant data according input type
 function filterData(searchText, restaurants) {
@@ -139,6 +141,18 @@ const Body = () => {
       setFilteredRestaurants(restaurants);
     }
   };
+  
+  const isOnline = useOnline();
+  if(!isOnline){
+    return <h1> <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    Offline, Please check your interent connection!!
+    </h1>
+  }
 
   // if allRestaurants is empty don't render restaurants cards
   if (!allRestaurants) return null;
@@ -174,10 +188,12 @@ const Body = () => {
           {/* We are mapping restaurants array and passing JSON array data to RestaurantCard component as props with unique key as restaurant.data.id */}
           {filteredRestaurants.map((restaurant) => {
             return (
-              <RestaurantCard
-                key={restaurant?.info?.id}
+              <Link to={"/restaurant/"+restaurant?.info?.id}
+              key={restaurant?.info?.id}
+              ><RestaurantCard
+                
                 {...restaurant?.info}
-              />
+              /></Link>
             );
           })}
         </div>
