@@ -12,19 +12,21 @@ import Profile from "./components/Profile";
 import About from "./components/About";
 import { createBrowserRouter,RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-
- 
+import { Provider } from "react-redux";
+import store  from "./utils/store";
 // composing component
 
 const About = lazy(()=> import("./components/About"))
 
 const AppLayout = () => {
   return (
+    <Provider store={store}>
     <React.Fragment>
       <Header />
       <Outlet />
       <Footer />
     </React.Fragment>
+    </Provider>
   );
 };
 
