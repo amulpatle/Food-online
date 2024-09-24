@@ -14,7 +14,8 @@ import { createBrowserRouter,RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
 import store  from "./utils/store";
-// composing component
+import Cart from "./components/Cart";
+
 
 const About = lazy(()=> import("./components/About"))
 
@@ -67,6 +68,9 @@ const appRouter = createBrowserRouter([
       {
         path:"/about",
         element:<About/>,
+      },{
+        path:"/cart",
+        element:<Cart/>
       }
       
     ],
